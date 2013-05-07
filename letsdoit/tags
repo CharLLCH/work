@@ -1,0 +1,65 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Arrydisplay	pichandle.c	/^void Arrydisplay(float arr[16]){$/;"	f
+BITMAPFILEHEADER	pichandle.h	/^typedef struct BITMAPFILEHEADER  $/;"	s
+BITMAPFILEHEADER	pichandle.h	/^}BITMAPFILEHEADER;$/;"	t	typeref:struct:BITMAPFILEHEADER
+BITMAPINFODEADER	pichandle.h	/^}BITMAPINFODEADER; $/;"	t	typeref:struct:BITMAPINFOHEADER
+BITMAPINFOHEADER	pichandle.h	/^typedef struct BITMAPINFOHEADER  $/;"	s
+BYTE	pichandle.h	13;"	d
+Bnum	pichandle.h	/^	int Bnum;$/;"	m	class:bmpreader
+DWORD	pichandle.h	15;"	d
+F	pichandle.c	/^WORD F(WORD a,WORD b,WORD c,WORD d){$/;"	f
+G	pichandle.c	/^WORD G(WORD a,WORD b,WORD c,WORD d){$/;"	f
+H	pichandle.c	/^WORD H(WORD a,WORD b,WORD c,WORD d){$/;"	f
+I	pichandle.c	/^WORD I(WORD a,WORD b,WORD c,WORD d){$/;"	f
+LSB	pichandle.c	/^BYTE LSB(BYTE c){$/;"	f
+N	pichandle.h	11;"	d
+NKProd	pichandle.c	/^void NKProd(float pk[16],float nk[16],float xinput,int times){$/;"	f
+PicS	pichandle.h	/^	BYTE *PicS;$/;"	m	class:bmpreader
+RGBQUAD	pichandle.h	/^}RGBQUAD;$/;"	t	typeref:struct:tagRGBQUAD
+RLProd	pichandle.c	/^void RLProd(float pk[16],float nk[16],BYTE *RL\/*[192]*\/,int eachtime,float xinput){$/;"	f
+RLSave	pichandle.c	/^void RLSave(int i,WORD tempL[16],BYTE *RL\/*[192]*\/){$/;"	f
+RLSplit	pichandle.c	/^void RLSplit(float nk,WORD tempL[16],int j){$/;"	f
+SLProd	pichandle.c	/^void SLProd(WORD tempL[16],WORD tmpL[16]){$/;"	f
+WORD	pichandle.h	14;"	d
+Xprod	pichandle.c	/^void Xprod(BYTE k[16],float pk[16]){$/;"	f
+bfOffBits	pichandle.h	/^	DWORD bfOffBits;   \/\/DA 10 - 图像数据指针对文件头的偏移量$/;"	m	struct:BITMAPFILEHEADER
+bfReserved1	pichandle.h	/^	WORD bfReserved1;   \/\/DA 6 - 文件保留字 0$/;"	m	struct:BITMAPFILEHEADER
+bfReserved2	pichandle.h	/^	WORD bfReserved2;   \/\/DA 8 - 文件保留字 0$/;"	m	struct:BITMAPFILEHEADER
+bfSize	pichandle.h	/^	DWORD bfSize; \/\/DA 2 - 定义文件大小，字节为单位  $/;"	m	struct:BITMAPFILEHEADER
+bfType	pichandle.h	/^	WORD bfType; \/\/数据地址为 0 - "BM"  $/;"	m	struct:BITMAPFILEHEADER
+biBitCount	pichandle.h	/^	WORD biBitCount;   \/\/DA 28 确定每个像素需要的位数 单色-1 16色-14 256-8 真彩-24$/;"	m	struct:BITMAPINFOHEADER
+biClrImportant	pichandle.h	/^	DWORD biClrImportant;  \/\/DA 50 重要颜色变址数 $/;"	m	struct:BITMAPINFOHEADER
+biClrUsed	pichandle.h	/^	DWORD biClrUsed;   \/\/DA 46 颜色变址数$/;"	m	struct:BITMAPINFOHEADER
+biCompression	pichandle.h	/^	DWORD biCompression;  \/\/DA 30 压缩类型是否与进行了什么压缩 $/;"	m	struct:BITMAPINFOHEADER
+biHeight	pichandle.h	/^	DWORD biHeight;   \/\/DA 22 像素为单位，文件所描述的位图的高度和宽度$/;"	m	struct:BITMAPINFOHEADER
+biPlanes	pichandle.h	/^	WORD biPlanes;   \/\/DA 26 目标设备的平面数 必须为1$/;"	m	struct:BITMAPINFOHEADER
+biSize	pichandle.h	/^	DWORD biSize;   \/\/DA14 BITMAPPINFOHEADER存储容量 固定值为40$/;"	m	struct:BITMAPINFOHEADER
+biSizeImage	pichandle.h	/^	DWORD biSizeImage;   \/\/DA 34 图像数据所占用的空间大小，若上面30-BI-RGB 则该字段必须为0$/;"	m	struct:BITMAPINFOHEADER
+biWidth	pichandle.h	/^	DWORD biWidth;   \/\/DA 18$/;"	m	struct:BITMAPINFOHEADER
+biXPelsPerMeter	pichandle.h	/^	DWORD biXPelsPerMeter;   \/\/DA 38$/;"	m	struct:BITMAPINFOHEADER
+biYPelsPerMeter	pichandle.h	/^	DWORD biYPelsPerMeter;   \/\/DA 42 分辨率$/;"	m	struct:BITMAPINFOHEADER
+bmpreader	pichandle.h	/^bmpreader::bmpreader(char *picaddr){$/;"	f	class:bmpreader
+bmpreader	pichandle.h	/^class bmpreader{$/;"	c
+colors	pichandle.h	/^	RGBQUAD colors;$/;"	m	class:bmpreader
+csize	pichandle.h	/^	int picH,picW,csize;$/;"	m	class:bmpreader
+cycL	pichandle.c	/^BYTE cycL(BYTE a,BYTE b){$/;"	f
+e	pichandle.h	12;"	d
+f	pichandle.c	/^float f(float xi,float x){$/;"	f
+head	pichandle.h	/^	BITMAPFILEHEADER head;$/;"	m	class:bmpreader
+info	pichandle.h	/^	BITMAPINFODEADER info;$/;"	m	class:bmpreader
+main	pichandle.c	/^int main( int argc, char **argv )  $/;"	f
+picH	pichandle.h	/^	int picH,picW,csize;$/;"	m	class:bmpreader
+picW	pichandle.h	/^	int picH,picW,csize;$/;"	m	class:bmpreader
+rgbBlue	pichandle.h	/^	BYTE rgbBlue;$/;"	m	struct:tagRGBQUAD
+rgbGreen	pichandle.h	/^	BYTE rgbGreen;$/;"	m	struct:tagRGBQUAD
+rgbRed	pichandle.h	/^	BYTE rgbRed;$/;"	m	struct:tagRGBQUAD
+rgbReserved	pichandle.h	/^	BYTE rgbReserved;$/;"	m	struct:tagRGBQUAD
+showBmpHead	pichandle.h	/^void bmpreader::showBmpHead(BITMAPFILEHEADER &pBmpHead){    $/;"	f	class:bmpreader
+showBmpInforHead	pichandle.h	/^void bmpreader::showBmpInforHead(BITMAPINFODEADER &pBmpInforHead){    $/;"	f	class:bmpreader
+showRgbtag	pichandle.h	/^void bmpreader::showRgbtag(RGBQUAD &colors){$/;"	f	class:bmpreader
+tagRGBQUAD	pichandle.h	/^typedef struct tagRGBQUAD{$/;"	s
