@@ -1,0 +1,61 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+BITMAPFILEHEADER	picread.h	/^typedef struct BITMAPFILEHEADER  $/;"	s
+BITMAPFILEHEADER	picread.h	/^}BITMAPFILEHEADER;$/;"	t	typeref:struct:BITMAPFILEHEADER
+BITMAPINFODEADER	picread.h	/^}BITMAPINFODEADER; $/;"	t	typeref:struct:BITMAPINFOHEADER
+BITMAPINFOHEADER	picread.h	/^typedef struct BITMAPINFOHEADER  $/;"	s
+BYTE	picread.h	16;"	d
+Bnum	picread.h	/^	int Bnum;$/;"	m	class:bmpreader
+DWORD	picread.h	18;"	d
+LProd	chgpic.cpp	/^void LProd(double *rla,double *L){$/;"	f
+N	picread.h	13;"	d
+NKProd	chgpic.cpp	/^void NKProd(double pk[16],double nk[16],int times){$/;"	f
+PicS	picread.h	/^	BYTE *PicS;$/;"	m	class:bmpreader
+RGBQUAD	picread.h	/^}RGBQUAD;$/;"	t	typeref:struct:tagRGBQUAD
+RProd	chgpic.cpp	/^void RProd(double *rlb,double *R){$/;"	f
+RtoY	chgpic.cpp	/^void RtoY(BYTE *BK,double *YUV,int eachtime){$/;"	f
+WORD	picread.h	17;"	d
+Xprod	chgpic.cpp	/^void Xprod(BYTE k[16],double pk[16]){$/;"	f
+bfOffBits	picread.h	/^	DWORD bfOffBits;   \/\/DA 10 - 图像数据指针对文件头的偏移量$/;"	m	struct:BITMAPFILEHEADER
+bfReserved1	picread.h	/^	WORD bfReserved1;   \/\/DA 6 - 文件保留字 0$/;"	m	struct:BITMAPFILEHEADER
+bfReserved2	picread.h	/^	WORD bfReserved2;   \/\/DA 8 - 文件保留字 0$/;"	m	struct:BITMAPFILEHEADER
+bfSize	picread.h	/^	DWORD bfSize; \/\/DA 2 - 定义文件大小，字节为单位  $/;"	m	struct:BITMAPFILEHEADER
+bfType	picread.h	/^	WORD bfType; \/\/数据地址为 0 - "BM"  $/;"	m	struct:BITMAPFILEHEADER
+biBitCount	picread.h	/^	WORD biBitCount;   \/\/DA 28 确定每个像素需要的位数 单色-1 16色-14 256-8 真彩-24$/;"	m	struct:BITMAPINFOHEADER
+biClrImportant	picread.h	/^	DWORD biClrImportant;  \/\/DA 50 重要颜色变址数 $/;"	m	struct:BITMAPINFOHEADER
+biClrUsed	picread.h	/^	DWORD biClrUsed;   \/\/DA 46 颜色变址数$/;"	m	struct:BITMAPINFOHEADER
+biCompression	picread.h	/^	DWORD biCompression;  \/\/DA 30 压缩类型是否与进行了什么压缩 $/;"	m	struct:BITMAPINFOHEADER
+biHeight	picread.h	/^	DWORD biHeight;   \/\/DA 22 像素为单位，文件所描述的位图的高度和宽度$/;"	m	struct:BITMAPINFOHEADER
+biPlanes	picread.h	/^	WORD biPlanes;   \/\/DA 26 目标设备的平面数 必须为1$/;"	m	struct:BITMAPINFOHEADER
+biSize	picread.h	/^	DWORD biSize;   \/\/DA14 BITMAPPINFOHEADER存储容量 固定值为40$/;"	m	struct:BITMAPINFOHEADER
+biSizeImage	picread.h	/^	DWORD biSizeImage;   \/\/DA 34 图像数据所占用的空间大小，若上面30-BI-RGB 则该字段必须为0$/;"	m	struct:BITMAPINFOHEADER
+biWidth	picread.h	/^	DWORD biWidth;   \/\/DA 18$/;"	m	struct:BITMAPINFOHEADER
+biXPelsPerMeter	picread.h	/^	DWORD biXPelsPerMeter;   \/\/DA 38$/;"	m	struct:BITMAPINFOHEADER
+biYPelsPerMeter	picread.h	/^	DWORD biYPelsPerMeter;   \/\/DA 42 分辨率$/;"	m	struct:BITMAPINFOHEADER
+bmpreader	picread.h	/^bmpreader::bmpreader(char *picaddr){$/;"	f	class:bmpreader
+bmpreader	picread.h	/^class bmpreader{$/;"	c
+colors	picread.h	/^	RGBQUAD colors;$/;"	m	class:bmpreader
+csize	picread.h	/^	int picH,picW,csize;$/;"	m	class:bmpreader
+e	picread.h	14;"	d
+f	chgpic.cpp	/^double f(double x){$/;"	f
+head	picread.h	/^	BITMAPFILEHEADER head;$/;"	m	class:bmpreader
+info	picread.h	/^	BITMAPINFODEADER info;$/;"	m	class:bmpreader
+main	chgpic.cpp	/^int main( int argc, char **argv )  $/;"	f
+main	jtest.cpp	/^int main(){$/;"	f
+pi	picread.h	15;"	d
+picH	picread.h	/^	int picH,picW,csize;$/;"	m	class:bmpreader
+picW	picread.h	/^	int picH,picW,csize;$/;"	m	class:bmpreader
+rgbBlue	picread.h	/^	BYTE rgbBlue;$/;"	m	struct:tagRGBQUAD
+rgbGreen	picread.h	/^	BYTE rgbGreen;$/;"	m	struct:tagRGBQUAD
+rgbRed	picread.h	/^	BYTE rgbRed;$/;"	m	struct:tagRGBQUAD
+rgbReserved	picread.h	/^	BYTE rgbReserved;$/;"	m	struct:tagRGBQUAD
+rlProd	chgpic.cpp	/^void rlProd(double pk[16],double nk[16],double *LR,int eachtime){$/;"	f
+showBmpHead	picread.h	/^void bmpreader::showBmpHead(BITMAPFILEHEADER &pBmpHead){    $/;"	f	class:bmpreader
+showBmpInforHead	picread.h	/^void bmpreader::showBmpInforHead(BITMAPINFODEADER &pBmpInforHead){    $/;"	f	class:bmpreader
+showRgbtag	picread.h	/^void bmpreader::showRgbtag(RGBQUAD &colors){$/;"	f	class:bmpreader
+tagRGBQUAD	picread.h	/^typedef struct tagRGBQUAD{$/;"	s
+testc	jtest.cpp	/^MatrixXd testc(double *cc,int x){$/;"	f
