@@ -14,7 +14,7 @@ void Arrydisplay(float arr[16]){
 }
 float f(float xi,float x){
 	float y;
-	y = 8*xi*xi*xi*xi - 8*x*x + 1;//大于一定次数后，产生的K值一定。。果然要用俩方程么。。。
+	y = 8*xi*xi*xi*xi - 8*xi*xi + 1;//大于一定次数后，产生的K值一定。。果然要用俩方程么。。。
 	if(y < 0)
 	    y =-y;
 	//y = 3.9999 * xi * ( 1 - xi);
