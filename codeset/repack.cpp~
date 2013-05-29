@@ -54,9 +54,9 @@ void RProd(double *rlb,double *R){
 		for(int i=0;i<8;i++){
 			for(int j=0;j<8;j++){
 				if(j==0){
-					R[64*k+8*i+j] = (1/(2*sqrt(2)))*cos(pi*((2*j+1)*rlb[64*k+j])/16);
+					R[64*k+8*i+j] = (1/(2*sqrt(2)))*cos(pi*((2*i+1)*rlb[64*k+8*i+j])/16);
 				}else{
-					R[64*k+8*i+j] = 0.5*cos(pi*((2*j+1)*(i+rlb[64*k+8*i+j]))/16);
+					R[64*k+8*i+j] = 0.5*cos(pi*((2*i+1)*(j+rlb[64*k+8*i+j]))/16);
 				}
 			}
 		}
@@ -120,10 +120,29 @@ void YtoR(double *YUV,BYTE *BK,int eachtime){
 	int i = 0;
 	while(i<eachtime){
 		double y,u,v;
+		BYTE r,g,b;
 		y = YUV[i+0];
 		u = YUV[i+1];
 		v = YUV[i+2];
-		BK[i+0] = (BYTE)();
+		r = (unsigned char)(1.164383*(y- 16) + 0 + 1.596027*(v - 128)); 
+ 		g = (unsigned char)(1.164383*(y- 16) - 0.391762*(u - 128) - 0.812969*(v - 128)); 
+ 		b = (unsigned char)(1.164383*(y- 16) + 2.017230*(u - 128) + 0 );
+		if(r<0)
+		    r = 0;
+		if(r>255)
+		    r = 255;
+		if(g<0)
+		    g = 0;
+		if(g>255)
+		    g = 255;
+		if(b<0)
+		    b = 0;
+		if(b>255)
+		    b = 255;
+		BK[i+0] = r;
+		BK[i+1] = g;
+		BK[i+2] = b;
+ 		i += 3;
 	}
 }
 
@@ -192,6 +211,11 @@ int main(int argc,char **argv){
 	       99,99,99,99,99,99,99,99;
 	MatrixXd Lyinver(8,8),Luinver(8,8),Lvinver(8,8);
 	MatrixXd Ryinver(8,8),Ruinver(8,8),Rvinver(8,8);
+	FILE *finalfp = fopen("final.bmp","wb");
+	pict.info.biSizeImage = 3*picH*picW;
+	pict.head.bfSize = pict.info.biSizeImage + 54;
+	fwrite(&pict.head,1,14,finalfp);
+	fwrite(&pict.info,1,40,finalfp);
 	for(int k=0;k<bnum;k++){
 		memcpy(CK,pict.PicD+k*eachtime,eachtime);
 		for(int i=0;i<eachtime/3;i++){
@@ -204,13 +228,11 @@ int main(int argc,char **argv){
 		Yvi = rzsearch(ckv);
 		for(int c=0;c<8;c++){
 			for(int d=0;d<8;d++){
-				Yym(c,d) = (Yyi(c,d)-0.5)*Lfm(c,d);
-				Yum(c,d) = (Yui(c,d)-0.5)*Cfm(c,d);
-				Yvm(c,d) = (Yvi(c,d)-0.5)*Cfm(c,d);
+				Yym(c,d) = Yyi(c,d)*Lfm(c,d);
+				Yum(c,d) = Yui(c,d)*Cfm(c,d);
+				Yvm(c,d) = Yvi(c,d)*Cfm(c,d);
 			}
 		}
-		if(k%500==0)
-		    cout<<Yym<<endl;
 		//一次产生a b 以计算出L & R
 		rlProd(pk,nk,rla,eachtime);
 		rlProd(pk,nk,rlb,eachtime);
@@ -227,24 +249,31 @@ int main(int argc,char **argv){
 			Rvm(i,j) = R[3*(8*i+j)+2];
 		    }
 		}//得到3个L&R
-		Lyinver = Lym.inverse();
-		Luinver = Lum.inverse();
-		Lvinver = Lvm.inverse();
-		Ryinver = Rym.inverse();
-		Ruinver = Rum.inverse();
-		Rvinver = Rvm.inverse();
+		Lyinver = Lym.transpose();
+		Luinver = Lum.transpose();
+		Lvinver = Lvm.transpose();
+		Ryinver = Rym.transpose();
+		Ruinver = Rum.transpose();
+		Rvinver = Rvm.transpose();
 		Xym = Lyinver*Yym*Ryinver;
 		Xum = Luinver*Yum*Ruinver;
 		Xvm = Lvinver*Yvm*Rvinver;
+		if(k%500==0)
+		    cout<<Xym<<endl<<"-----------"<<endl;
+		int td=0;	
 		for(int i=0;i<8;i++){
 			for(int j=0;j<8;j++){
-				YUV[3*(8*i+j)+0] = Xym(i,j)+128;
-				YUV[3*(8*i+j)+1] = Xum(i,j)+128;
-				YUV[3*(8*i+j)+2] = Xvm(i,j)+128;
+				td = Xym(i,j);
+				YUV[3*(8*i+j)+0] = td+128;
+				td = Xum(i,j);
+				YUV[3*(8*i+j)+1] = td+128;
+				td = Xvm(i,j);
+				YUV[3*(8*i+j)+2] = td+128;
 			}
 		}
+		YtoR(YUV,BK,eachtime);
+		fwrite(BK,1,eachtime,finalfp);
 	}
-
-
+	fclose(finalfp);
 	return 0;
 }

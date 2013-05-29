@@ -30,9 +30,12 @@ void RtoY(BYTE *BK,double *YUV,int eachtime){
 		r = BK[i+0];
 		g = BK[i+1];
 		b = BK[i+2];
-		YUV[i+0] = (double)((r*0.256789 + g*0.504129 + b*0.097906) + 16);
-		YUV[i+1] = (double)((r*(-0.148223) + g*(-0.290992) + b*0.439215) + 128);
-		YUV[i+2] = (double)((r*0.439215 + g*(-0.367789) + b*(-0.071426)) + 128);
+		YUV[i+0] = (double)(0.299*r+0.587*g+0.114*b);
+		YUV[i+1] = (double)(-0.1687*r-0.3313*g+0.5b+128);
+		YUV[i+2] = (double)(0.5*r-0.418*g-0.0813*b+128);
+		//YUV[i+0] = (double)((r*0.256789 + g*0.504129 + b*0.097906) + 16);
+		//YUV[i+1] = (double)((r*(-0.148223) + g*(-0.290992) + b*0.439215) + 128);
+		//YUV[i+2] = (double)((r*0.439215 + g*(-0.367789) + b*(-0.071426)) + 128);
 		i = i+3;	
 	}
 }
@@ -56,7 +59,7 @@ void LProd(double *rla,double *L){
 		for(int i=0;i<8;i++){
 			for(int j=0;j<8;j++){
 				if(i==0){//这里老是为0
-					L[64*k+j] = (1/(2*sqrt(2)))*cos(pi*((2*j+1)*rla[64*k+8*i+j])/16);
+					L[64*k+j] = (1/(2*sqrt(2)))*cos(pi*((2*j+1)*rla[64*k+j])/16);
 				}else{
 					L[64*k+8*i+j] = 0.5*cos(pi*((2*j+1)*(i+rla[64*k+8*i+j]))/16);
 				}
@@ -71,7 +74,7 @@ void RProd(double *rlb,double *R){
 				if(j==0){
 					R[64*k+8*i+j] = (1/(2*sqrt(2)))*cos(pi*((2*i+1)*rlb[64*k+8*i+j])/16);
 				}else{
-					R[64*k+8*i+j] = 0.5*cos(pi*((2*i+1)*(j+rlb[64*k+8*i+j]))/16);
+					R[64*k+8*i+j] = 0.5*cos(pi*((2*i+1)*(i+rlb[64*k+8*i+j]))/16);
 				}
 			}
 		}
@@ -222,6 +225,11 @@ int main( int argc, char **argv )
 			Rvm(i,j) = R[3*(8*i+j)+2];
 		    }
 		}//得到YUV三个分量的X矩阵,3个L&R
+
+		Rym = Lym.transpose();
+		Rum = Lum.transpose();
+		Rvm = Lvm.transpose();
+
 		Yym = Lym*Xym*Rym;
 		Yum = Lum*Xum*Rum;
 		Yvm = Lvm*Xvm*Rvm;
@@ -231,8 +239,8 @@ int main( int argc, char **argv )
 		for(int c=0;c<8;c++){
 			for(int d=0;d<8;d++){
 				Yyi(c,d) = (int)(Yym(c,d)/Lfm(c,d));
-				Yui(c,d) = (int)(Yum(c,d)/Cfm(c,d));
-				Yvi(c,d) = (int)(Yvm(c,d)/Cfm(c,d));
+				Yui(c,d) = (int)(Yum(c,d)/Lfm(c,d));
+				Yvi(c,d) = (int)(Yvm(c,d)/Lfm(c,d));
 			}
 		}
 		zsearch(Yyi,cky);

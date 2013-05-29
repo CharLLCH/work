@@ -30,10 +30,40 @@ void RtoY(BYTE *BK,double *YUV,int eachtime){
 		r = BK[i+0];
 		g = BK[i+1];
 		b = BK[i+2];
-		YUV[i+0] = (double)((r*0.256789 + g*0.504129 + b*0.097906) + 16);
-		YUV[i+1] = (double)((r*(-0.148223) + g*(-0.290992) + b*0.439215) + 128);
-		YUV[i+2] = (double)((r*0.439215 + g*(-0.367789) + b*(-0.071426)) + 128);
+		YUV[i+0] = (double)(0.299*r+0.587*g+0.114*b);
+		YUV[i+1] = (double)(-0.1687*r-0.3313*g+0.5*b+128);
+		YUV[i+2] = (double)(0.5*r-0.418*g-0.0813*b+128);
 		i = i+3;	
+	}
+}
+
+void YtoR(double *YUV,BYTE *BK,int eachtime){
+	int i = 0;
+	while(i<eachtime){
+		double y,u,v;
+		BYTE r,g,b;
+		y = YUV[i+0];
+		u = YUV[i+1];
+		v = YUV[i+2];
+		r = (unsigned char)(y+1.402*(v-128));
+		g = (unsigned char)(y-0.34414*(u-128)-0.71414*(v-128));
+		b = (unsigned char)(y+1.772*(u-128));
+		if(r<0)
+		    r = 0;
+		if(r>255)
+		    r = 255;
+		if(g<0)
+		    g = 0;
+		if(g>255)
+		    g = 255;
+		if(b<0)
+		    b = 0;
+		if(b>255)
+		    b = 255;
+		BK[i+0] = r;
+		BK[i+1] = g;
+		BK[i+2] = b;
+ 		i += 3;
 	}
 }
 
@@ -43,9 +73,7 @@ void rlProd(double pk[16],double nk[16],double *LR,int eachtime){
 			nk[j] = (1 - e) * f(pk[j]) + e * f(pk[(j+1)%16]); 
 		}
 		for(int k=0;k<16;k++){
-			LR[16*i+k] = nk[k]/2;
-			if((nk[k]/2 <-0.5)|(nk[k]/2)>0.5)
-			    cout<<"有超范围的映射"<<endl;
+			LR[16*i+k] = nk[k]/3;
 			pk[k] = nk[k];
 		}
 	}
@@ -56,7 +84,7 @@ void LProd(double *rla,double *L){
 		for(int i=0;i<8;i++){
 			for(int j=0;j<8;j++){
 				if(i==0){//这里老是为0
-					L[64*k+j] = (1/(2*sqrt(2)))*cos(pi*((2*j+1)*rla[64*k+8*i+j])/16);
+					L[64*k+j] = (1/(2*sqrt(2)))*cos(pi*((2*j+1)*rla[64*k+j])/16);
 				}else{
 					L[64*k+8*i+j] = 0.5*cos(pi*((2*j+1)*(i+rla[64*k+8*i+j]))/16);
 				}
@@ -195,6 +223,14 @@ int main( int argc, char **argv )
 	       99,99,99,99,99,99,99,99,	
 	       99,99,99,99,99,99,99,99,
 	       99,99,99,99,99,99,99,99;
+	MatrixXd Lyinver(8,8),Luinver(8,8),Lvinver(8,8);
+	MatrixXd Ryinver(8,8),Ruinver(8,8),Rvinver(8,8);
+	FILE *flfp = fopen("fl.bmp","wb");
+	pict.info.biSizeImage = 3*picH*picW;
+	pict.head.bfSize = pict.info.biSizeImage + 54;
+	fwrite(&pict.head,1,14,flfp);
+	fwrite(&pict.info,1,40,flfp);
+
 	BYTE ckb[picS];
 	int ckn = 0;
 	BYTE zma = 0;
@@ -228,11 +264,17 @@ int main( int argc, char **argv )
 		if(k%500==0)
 		    cout<<Xym<<endl<<"============"<<endl;
 		//量化
+		/*MatrixXd l(8,8),r(8,8);
+		l = Lym.inverse();
+		r = Rym.inverse();
+		Xym = l*Yym*r;
+		if(k%500==0)
+		    cout<<Xym<<endl<<"------------"<<endl;*/
 		for(int c=0;c<8;c++){
 			for(int d=0;d<8;d++){
 				Yyi(c,d) = (int)(Yym(c,d)/Lfm(c,d));
-				Yui(c,d) = (int)(Yum(c,d)/Cfm(c,d));
-				Yvi(c,d) = (int)(Yvm(c,d)/Cfm(c,d));
+				Yui(c,d) = (int)(Yum(c,d)/Lfm(c,d));
+				Yvi(c,d) = (int)(Yvm(c,d)/Lfm(c,d));
 			}
 		}
 		zsearch(Yyi,cky);
@@ -260,8 +302,38 @@ int main( int argc, char **argv )
 				}
 			}
 		}
-		
+
+		/*for(int c=0;c<8;c++){
+			for(int d=0;d<8;d++){
+				Yym(c,d) = Yyi(c,d)*Lfm(c,d);
+				Yum(c,d) = Yui(c,d)*Cfm(c,d);
+				Yvm(c,d) = Yvi(c,d)*Cfm(c,d);
+			}
+		}*/
+		Lyinver = Lym.inverse();
+		Luinver = Lum.inverse();
+		Lvinver = Lvm.inverse();
+		Ryinver = Rym.inverse();
+		Ruinver = Rum.inverse();
+		Rvinver = Rvm.inverse();
+		Xym = Lyinver*Yym*Ryinver;
+		Xum = Luinver*Yum*Ruinver;
+		Xvm = Lvinver*Yvm*Rvinver;
+		int td=0;	
+		for(int i=0;i<8;i++){
+			for(int j=0;j<8;j++){
+				td = Xym(i,j);
+				YUV[3*(8*i+j)+0] = td+128;
+				td = Xum(i,j);
+				YUV[3*(8*i+j)+1] = td+128;
+				td = Xvm(i,j);
+				YUV[3*(8*i+j)+2] = td+128;
+			}
+		}
+		YtoR(YUV,BK,eachtime);
+		fwrite(BK,1,eachtime,flfp);
 	}
+	fclose(flfp);
 	//cout<<ckn<<endl;
 	//cout<<picS<<endl;
 	pict.head.bfSize = picS;

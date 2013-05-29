@@ -54,9 +54,9 @@ void RProd(double *rlb,double *R){
 		for(int i=0;i<8;i++){
 			for(int j=0;j<8;j++){
 				if(j==0){
-					R[64*k+8*i+j] = (1/(2*sqrt(2)))*cos(pi*((2*j+1)*rlb[64*k+j])/16);
+					R[64*k+8*i+j] = (1/(2*sqrt(2)))*cos(pi*((2*i+1)*rlb[64*k+8*i+j])/16);
 				}else{
-					R[64*k+8*i+j] = 0.5*cos(pi*((2*j+1)*(i+rlb[64*k+8*i+j]))/16);
+					R[64*k+8*i+j] = 0.5*cos(pi*((2*i+1)*(j+rlb[64*k+8*i+j]))/16);
 				}
 			}
 		}
